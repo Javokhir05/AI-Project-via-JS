@@ -11,8 +11,9 @@ const typeText = document.querySelector(".type");
 
 const API_KEY = "";
 
-//API setup
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${API_KEY}`;
+// API setup
+const API_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent";
 
 const userData = {
   message: null,
@@ -56,7 +57,6 @@ const generateBotResponse = async (incomingMessageDiv) => {
       contents: chatHistory,
     }),
   };
-  const response = await fetch(API_URL, requestOptions);
   try {
     //Fetch BOT response from API
     const response = await fetch(API_URL, requestOptions);

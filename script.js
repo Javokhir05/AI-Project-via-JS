@@ -9,11 +9,8 @@ const closeChatbot = document.querySelector("#close-chatbot");
 const textInfo = document.querySelector(".text-info");
 const typeText = document.querySelector(".type");
 
-const API_KEY = "";
-
-// API setup
-const API_URL =
-  "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent";
+// API setup - Netlify Function
+const API_URL = "/.netlify/functions/chat";
 
 const userData = {
   message: null,
@@ -51,7 +48,6 @@ const generateBotResponse = async (incomingMessageDiv) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-goog-api-key": API_KEY,
     },
     body: JSON.stringify({
       contents: chatHistory,

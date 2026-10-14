@@ -56,13 +56,28 @@ const generateBotResponse = async (incomingMessageDiv) => {
   try {
     //Fetch BOT response from API
     const response = await fetch(API_URL, requestOptions);
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error.message);
-    //extract and display bot'response
-    const apiResponseText = data.candidates[0].content.parts[0].text
-      .replace(/\*\*(.*?)\*\*/g, "$1")
-      .trim();
-    messageElement.innerText = apiResponseText;
+    
+const data = await response.json();
+
+if (!response.ok) {
+  throw new Error(
+    data.error?.message || `Request failed: ${response.status}`
+  );
+}
+
+const apiResponseText =
+  data.candidates?.[0]?.content?.parts
+    ?.map((part) => part.text || "")
+    .join("") || "";
+
+if (!apiResponseText.trim()) {
+  throw new Error("The API returned an empty response.");
+}
+
+messageElement.innerText = apiResponseText
+  .replace(/\*\*(.*?)\*\*/g, "$1")
+  .trim();
+
 
     // ADD bot response to the Chat history
     chatHistory.push({

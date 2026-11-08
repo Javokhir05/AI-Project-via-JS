@@ -1,6 +1,7 @@
 (() => {
     Auth.redirectIfAuthed();
 
+    const t = (k, v) => I18n.t(k, v);
     const form = document.getElementById("auth-form");
     const mode = form.dataset.mode; // "login" | "register"
     const submitBtn = document.getElementById("submit");
@@ -14,15 +15,21 @@
     if (next && switchLink) switchLink.href += "?next=" + encodeURIComponent(next);
 
     // Show / hide password
+    const updateReveal = () => {
+        document.querySelectorAll("[data-reveal]").forEach((btn) => {
+            const shown = field(btn.dataset.reveal).type !== "password";
+            btn.querySelector(".ms").textContent = shown ? "visibility_off" : "visibility";
+            btn.setAttribute("aria-label", t(shown ? "form.hidePassword" : "form.showPassword"));
+        });
+    };
     document.querySelectorAll("[data-reveal]").forEach((btn) => {
         btn.addEventListener("click", () => {
             const input = field(btn.dataset.reveal);
-            const show = input.type === "password";
-            input.type = show ? "text" : "password";
-            btn.querySelector(".ms").textContent = show ? "visibility_off" : "visibility";
-            btn.setAttribute("aria-label", show ? "Hide password" : "Show password");
+            input.type = input.type === "password" ? "text" : "password";
+            updateReveal();
         });
     });
+    updateReveal();
 
     // Errors
     const setFieldError = (name, msg) => {
@@ -46,28 +53,37 @@
 
     // Password strength (register only)
     const strength = document.getElementById("strength");
-    if (strength) {
-        const label = document.getElementById("strength-label");
-        const names = ["", "Weak", "Fair", "Good", "Strong"];
-        field("password").addEventListener("input", (e) => {
-            const p = e.target.value;
-            let score = 0;
-            if (p.length >= 8) score++;
-            if (/[a-z]/.test(p) && /[A-Z]/.test(p)) score++;
-            if (/\d/.test(p)) score++;
-            if (/[^A-Za-z0-9]/.test(p) || p.length >= 14) score++;
-            if (!p) score = 0;
-            strength.dataset.level = score;
-            label.textContent = p ? names[score] || "Weak" : "";
-        });
-    }
+    const strengthLabel = document.getElementById("strength-label");
+    const strengthKeys = ["", "strength.weak", "strength.fair", "strength.good", "strength.strong"];
+    const updateStrength = () => {
+        if (!strength) return;
+        const p = field("password").value;
+        let score = 0;
+        if (p.length >= 8) score++;
+        if (/[a-z]/.test(p) && /[A-Z]/.test(p)) score++;
+        if (/\d/.test(p)) score++;
+        if (/[^A-Za-z0-9]/.test(p) || p.length >= 14) score++;
+        if (!p) score = 0;
+        strength.dataset.level = score;
+        strengthLabel.textContent = p ? t(strengthKeys[score] || strengthKeys[1]) : "";
+    };
+    if (strength) field("password").addEventListener("input", updateStrength);
 
     const setLoading = (loading) => {
         submitBtn.disabled = loading;
-        submitBtn.innerHTML = loading
-            ? '<span class="spinner"></span> Please wait…'
-            : mode === "login" ? "Log in" : "Create account";
+        if (loading) {
+            submitBtn.innerHTML = '<span class="spinner"></span>';
+            submitBtn.append(" " + t("form.wait"));
+        } else {
+            submitBtn.textContent = t(mode === "login" ? "common.login" : "common.createAccount");
+        }
     };
+
+    I18n.onChange(() => {
+        updateReveal();
+        updateStrength();
+        clearErrors();
+    });
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -80,14 +96,14 @@
         if (mode === "register") {
             const confirm = field("confirm").value;
             if (password !== confirm) {
-                setFieldError("confirm", "Passwords don't match.");
+                setFieldError("confirm", t("err.mismatch"));
                 return;
             }
             setLoading(true);
             result = await Auth.register({ name: field("name").value, email, password });
         } else {
-            if (!email.trim()) return setFieldError("email", "Enter your email.");
-            if (!password) return setFieldError("password", "Enter your password.");
+            if (!email.trim()) return setFieldError("email", t("err.enterEmail"));
+            if (!password) return setFieldError("password", t("err.enterPassword"));
             setLoading(true);
             result = await Auth.login({ email, password, remember: document.getElementById("remember").checked });
         }

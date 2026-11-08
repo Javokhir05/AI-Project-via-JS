@@ -10,6 +10,7 @@ const Auth = (() => {
     const SESSION_KEY = "chatbot_session";
     const ALLOWED_NEXT = ["chat.html"];
     const enc = new TextEncoder();
+    const tr = (k) => (typeof I18n !== "undefined" ? I18n.t(k) : k);
 
     const readJSON = (store, key) => {
         try { return JSON.parse(store.getItem(key)); } catch (e) { return null; }
@@ -62,11 +63,11 @@ const Auth = (() => {
         async register({ name, email, password }) {
             name = String(name || "").trim();
             email = normEmail(email);
-            if (name.length < 2) return { ok: false, field: "name", error: "Please enter your name." };
-            if (!validEmail(email)) return { ok: false, field: "email", error: "Enter a valid email address." };
-            if (!password || password.length < 8) return { ok: false, field: "password", error: "Use at least 8 characters." };
+            if (name.length < 2) return { ok: false, field: "name", error: tr("err.name") };
+            if (!validEmail(email)) return { ok: false, field: "email", error: tr("err.emailInvalid") };
+            if (!password || password.length < 8) return { ok: false, field: "password", error: tr("err.passwordShort") };
             const users = getUsers();
-            if (users[email]) return { ok: false, field: "email", error: "An account with this email already exists." };
+            if (users[email]) return { ok: false, field: "email", error: tr("err.emailTaken") };
             const salt = randomSalt();
             users[email] = { name, email, salt, hash: await hashPassword(password, salt), created: Date.now() };
             setUsers(users);
@@ -78,7 +79,7 @@ const Auth = (() => {
             email = normEmail(email);
             const u = getUsers()[email];
             if (!u || (await hashPassword(password || "", u.salt)) !== u.hash) {
-                return { ok: false, error: "Incorrect email or password." };
+                return { ok: false, error: tr("err.badLogin") };
             }
             startSession(email, !!remember);
             return { ok: true };

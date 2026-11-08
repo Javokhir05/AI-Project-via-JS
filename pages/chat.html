@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Chat – ChatBot</title>
+    <title data-i18n="chat.doc">Chat – ChatBot</title>
     <link rel="icon" href="../assets/logo.svg">
     <script src="../js/theme.js"></script>
     <link rel="stylesheet" href="../css/base.css">
@@ -13,17 +13,17 @@
     <div class="app" id="app">
 
         <!-- Sidebar: history -->
-        <aside class="sidebar" id="sidebar" aria-label="Chat history">
+        <aside class="sidebar" id="sidebar" aria-label="Chat history" data-i18n-aria="chat.sidebarLabel">
             <div class="sb-head">
                 <a class="logo" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span> ChatBot</a>
-                <button class="icon-btn sb-close" id="sb-close" aria-label="Close menu"><span class="ms">close</span></button>
+                <button class="icon-btn sb-close" id="sb-close" aria-label="Close menu" data-i18n-aria="chat.closeMenu"><span class="ms">close</span></button>
             </div>
 
-            <button class="btn btn-primary btn-block" id="new-chat"><span class="ms">add</span> New chat</button>
+            <button class="btn btn-primary btn-block" id="new-chat"><span class="ms">add</span> <span data-i18n="chat.new">New chat</span></button>
 
             <div class="search">
                 <span class="ms">search</span>
-                <input id="search" type="search" placeholder="Search chats" autocomplete="off" aria-label="Search chats">
+                <input id="search" type="search" placeholder="Search chats" data-i18n-placeholder="chat.searchPh" autocomplete="off" aria-label="Search chats" data-i18n-aria="chat.searchPh">
             </div>
 
             <nav class="history" id="history"></nav>
@@ -34,8 +34,8 @@
                     <strong id="user-name"></strong>
                     <small id="user-email"></small>
                 </div>
-                <button class="icon-btn" id="clear-all" title="Clear all history" aria-label="Clear all history"><span class="ms">delete_sweep</span></button>
-                <button class="icon-btn" id="logout" title="Log out" aria-label="Log out"><span class="ms">logout</span></button>
+                <button class="icon-btn" id="clear-all" title="Clear all history" aria-label="Clear all history" data-i18n-title="chat.clearAll" data-i18n-aria="chat.clearAll"><span class="ms">delete_sweep</span></button>
+                <button class="icon-btn" id="logout" title="Log out" aria-label="Log out" data-i18n-title="chat.logout" data-i18n-aria="chat.logout"><span class="ms">logout</span></button>
             </div>
         </aside>
         <div class="scrim" id="scrim"></div>
@@ -43,10 +43,11 @@
         <!-- Main chat area -->
         <main class="main">
             <header class="topbar">
-                <button class="icon-btn menu-btn" id="open-sb" aria-label="Open chat history"><span class="ms">menu</span></button>
+                <button class="icon-btn menu-btn" id="open-sb" aria-label="Open chat history" data-i18n-aria="chat.openHistory"><span class="ms">menu</span></button>
                 <h1 id="chat-title">New chat</h1>
-                <button class="icon-btn" id="top-new" title="New chat" aria-label="New chat"><span class="ms">edit_square</span></button>
-                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+                <button class="icon-btn" id="top-new" title="New chat" aria-label="New chat" data-i18n-title="chat.new" data-i18n-aria="chat.new"><span class="ms">edit_square</span></button>
+                <div data-lang-switch></div>
+                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode" data-i18n-aria="common.toggleTheme">
                     <span class="ms">dark_mode</span><span class="ms">light_mode</span>
                 </button>
             </header>
@@ -55,21 +56,21 @@
 
             <div class="composer-wrap">
                 <div class="attach-preview" id="attach-preview" hidden>
-                    <img id="attach-img" alt="Attached image">
+                    <img id="attach-img" alt="Attached image" data-i18n-alt="chat.attached">
                     <span id="attach-name"></span>
-                    <button class="icon-btn" id="attach-remove" aria-label="Remove image"><span class="ms">close</span></button>
+                    <button class="icon-btn" id="attach-remove" aria-label="Remove image" data-i18n-aria="chat.removeImage"><span class="ms">close</span></button>
                 </div>
 
                 <form class="composer" id="composer" autocomplete="off">
-                    <textarea id="input" rows="1" placeholder="Message ChatBot…" aria-label="Message"></textarea>
+                    <textarea id="input" rows="1" placeholder="Message ChatBot…" aria-label="Message" data-i18n-placeholder="chat.inputPh" data-i18n-aria="chat.message"></textarea>
                     <div class="composer-actions">
-                        <button type="button" class="icon-btn" id="emoji-btn" aria-label="Insert emoji"><span class="ms">sentiment_satisfied</span></button>
+                        <button type="button" class="icon-btn" id="emoji-btn" aria-label="Insert emoji" data-i18n-aria="chat.emoji"><span class="ms">sentiment_satisfied</span></button>
                         <input type="file" id="file-input" accept="image/*" hidden>
-                        <button type="button" class="icon-btn" id="file-btn" aria-label="Attach image"><span class="ms">attach_file</span></button>
-                        <button type="submit" class="send-btn" id="send" aria-label="Send message" disabled><span class="ms">arrow_upward</span></button>
+                        <button type="button" class="icon-btn" id="file-btn" aria-label="Attach image" data-i18n-aria="chat.attach"><span class="ms">attach_file</span></button>
+                        <button type="submit" class="send-btn" id="send" aria-label="Send message" data-i18n-aria="chat.send" disabled><span class="ms">arrow_upward</span></button>
                     </div>
                 </form>
-                <p class="hint">Responses may contain mistakes. Press <kbd>Enter</kbd> to send, <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line.</p>
+                <p class="hint" data-i18n-html="chat.hint">Responses may contain mistakes. Press <kbd>Enter</kbd> to send, <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line.</p>
             </div>
         </main>
     </div>
@@ -77,6 +78,7 @@
     <div class="toast" id="toast" role="status"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@5.6.0/dist/browser.js"></script>
+    <script src="../js/i18n.js"></script>
     <script src="../js/config.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/api.js"></script>

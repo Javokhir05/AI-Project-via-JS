@@ -12,5 +12,5 @@ window.APP_CONFIG = {
 
     // Optional: URL of your own endpoint. It receives the same JSON body as Gemini's
     // generateContent and should forward it using a server-side key.
-    PROXY_URL: "/.netlify/functions/chat",
+    PROXY_URL: "",
 };

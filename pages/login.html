@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Log in – ChatBot</title>
+    <title data-i18n="login.doc">Log in – ChatBot</title>
     <link rel="icon" href="../assets/logo.svg">
     <script src="../js/theme.js"></script>
     <link rel="stylesheet" href="../css/base.css">
@@ -14,12 +14,12 @@
         <aside class="auth-aside">
             <a class="logo" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span> ChatBot</a>
             <div class="aside-copy">
-                <h2>Welcome back 👋</h2>
-                <p>Pick up your conversations right where you left them.</p>
+                <h2 data-i18n="login.asideTitle">Welcome back 👋</h2>
+                <p data-i18n="login.asideText">Pick up your conversations right where you left them.</p>
                 <ul class="aside-list">
-                    <li><span class="ms">check</span> All your chats in one sidebar</li>
-                    <li><span class="ms">check</span> Search and reopen past conversations</li>
-                    <li><span class="ms">check</span> Light and dark themes</li>
+                    <li><span class="ms">check</span> <span data-i18n="login.a1">All your chats in one sidebar</span></li>
+                    <li><span class="ms">check</span> <span data-i18n="login.a2">Search and reopen past conversations</span></li>
+                    <li><span class="ms">check</span> <span data-i18n="login.a3">Light and dark themes</span></li>
                 </ul>
             </div>
             <div class="aside-foot">© ChatBot</div>
@@ -27,23 +27,26 @@
 
         <main class="auth-main">
             <div class="auth-top">
-                <a class="back" href="../index.html"><span class="ms">arrow_back</span> Home</a>
+                <a class="back" href="../index.html"><span class="ms">arrow_back</span> <span data-i18n="common.home">Home</span></a>
                 <a class="logo logo-mobile" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span></a>
-                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
-                    <span class="ms">dark_mode</span><span class="ms">light_mode</span>
-                </button>
+                <div class="top-actions">
+                    <div data-lang-switch></div>
+                    <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode" data-i18n-aria="common.toggleTheme">
+                        <span class="ms">dark_mode</span><span class="ms">light_mode</span>
+                    </button>
+                </div>
             </div>
 
             <div class="auth-center">
                 <div class="auth-card">
-                    <h1>Log in</h1>
-                    <p class="sub">Enter your details to access your chats.</p>
+                    <h1 data-i18n="login.title">Log in</h1>
+                    <p class="sub" data-i18n="login.sub">Enter your details to access your chats.</p>
 
                     <form id="auth-form" data-mode="login" novalidate>
                         <div class="form-error" id="form-error" role="alert"><span class="ms">error</span><span id="form-error-text"></span></div>
 
                         <div class="field">
-                            <label for="email">Email</label>
+                            <label for="email" data-i18n="form.email">Email</label>
                             <div class="input-wrap">
                                 <span class="ms">mail</span>
                                 <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
@@ -52,28 +55,29 @@
                         </div>
 
                         <div class="field">
-                            <label for="password">Password</label>
+                            <label for="password" data-i18n="form.password">Password</label>
                             <div class="input-wrap">
                                 <span class="ms">lock</span>
-                                <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" required>
+                                <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="Your password" data-i18n-placeholder="form.passwordPh" required>
                                 <button type="button" class="icon-btn reveal-btn reveal" aria-label="Show password" data-reveal="password"><span class="ms">visibility</span></button>
                             </div>
                             <div class="field-error" data-error-for="password"></div>
                         </div>
 
                         <div class="row-between">
-                            <label class="check"><input type="checkbox" id="remember" checked> Remember me</label>
+                            <label class="check"><input type="checkbox" id="remember" checked> <span data-i18n="form.remember">Remember me</span></label>
                         </div>
 
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit">Log in</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit" data-i18n="common.login">Log in</button>
                     </form>
 
-                    <p class="switch">New here? <a href="register.html" id="switch-link">Create an account</a></p>
+                    <p class="switch"><span data-i18n="login.newHere">New here?</span> <a href="register.html" id="switch-link" data-i18n="login.createLink">Create an account</a></p>
                 </div>
             </div>
         </main>
     </div>
 
+    <script src="../js/i18n.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/auth-pages.js"></script>
 </body>

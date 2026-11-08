@@ -14,14 +14,10 @@
     const searchEl = $("#search");
     const titleEl = $("#chat-title");
     const toastEl = $("#toast");
+    const t = (k, v) => I18n.t(k, v);
 
     const STORAGE_KEY = "chatbot_history_" + user.email;
-    const SUGGESTIONS = [
-        ["lightbulb", "Explain how photosynthesis works in simple terms"],
-        ["mail", "Help me write a polite email asking for a deadline extension"],
-        ["code", "Show me a JavaScript function that debounces another function"],
-        ["restaurant", "Suggest a quick vegetarian dinner I can cook in 20 minutes"],
-    ];
+    const SUGGESTIONS = [["lightbulb", "sug.1"], ["mail", "sug.2"], ["code", "sug.3"], ["restaurant", "sug.4"]];
 
     let chats = loadChats();
     let activeId = null;
@@ -40,7 +36,7 @@
             // Image data is kept in memory only (it would quickly fill localStorage)
             localStorage.setItem(STORAGE_KEY, JSON.stringify(chats, (k, v) => (k === "image" ? undefined : v)));
         } catch (e) {
-            toast("Storage is full, so this chat could not be saved.", true);
+            toast(t("chat.storageFull"), true);
         }
     }
     const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
@@ -112,7 +108,7 @@
                 img.className = "attachment"; img.src = m.image; img.alt = "Attached image";
                 bubble.appendChild(img);
             } else if (m.hasImage) {
-                bubble.insertAdjacentHTML("beforeend", '<div class="img-chip"><span class="ms">image</span> Image attached</div>');
+                bubble.insertAdjacentHTML("beforeend", `<div class="img-chip"><span class="ms">image</span> ${escapeHtml(t("chat.imageAttached"))}</div>`);
             }
             const t = document.createElement("div");
             t.textContent = m.text;
@@ -121,10 +117,10 @@
             bubble.innerHTML = renderMarkdown(m.text);
             const tools = document.createElement("div");
             tools.className = "msg-tools";
-            tools.innerHTML = '<button class="icon-btn" title="Copy" aria-label="Copy answer"><span class="ms">content_copy</span></button>';
+            tools.innerHTML = `<button class="icon-btn" title="${escapeHtml(t("chat.copy"))}" aria-label="${escapeHtml(t("chat.copy"))}"><span class="ms">content_copy</span></button>`;
             tools.firstChild.addEventListener("click", async () => {
-                try { await navigator.clipboard.writeText(m.text); toast("Copied to clipboard"); }
-                catch (e) { toast("Could not copy", true); }
+                try { await navigator.clipboard.writeText(m.text); toast(t("chat.copied")); }
+                catch (e) { toast(t("chat.copyFail"), true); }
             });
             bubble.appendChild(tools);
         }
@@ -142,12 +138,13 @@
             inner.innerHTML = `
                 <div class="welcome">
                     <div class="logo-mark"><img src="../assets/logo.svg" alt=""></div>
-                    <h2>Hi ${escapeHtml(user.name.split(" ")[0])}, how can I help?</h2>
-                    <p>Ask me anything, or try one of these.</p>
+                    <h2>${escapeHtml(t("chat.welcome", { name: user.name.split(" ")[0] }))}</h2>
+                    <p>${escapeHtml(t("chat.welcomeSub"))}</p>
                     <div class="suggestions"></div>
                 </div>`;
             const wrap = inner.querySelector(".suggestions");
-            SUGGESTIONS.forEach(([icon, text]) => {
+            SUGGESTIONS.forEach(([icon, key]) => {
+                const text = t(key);
                 const b = document.createElement("button");
                 b.className = "suggestion"; b.type = "button";
                 b.innerHTML = `<span class="ms">${icon}</span><span></span>`;
@@ -159,7 +156,7 @@
             chat.messages.forEach((m) => inner.appendChild(messageNode(m)));
         }
         messagesEl.appendChild(inner);
-        titleEl.textContent = chat ? chat.title : "New chat";
+        titleEl.textContent = chat ? chat.title : t("chat.new");
         document.title = (chat ? chat.title + " – " : "") + "ChatBot";
         scrollToBottom(false);
     }
@@ -180,10 +177,10 @@
     function groupLabel(ts) {
         const sod = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
         const diff = Math.round((sod(new Date()) - sod(new Date(ts))) / 864e5);
-        if (diff <= 0) return "Today";
-        if (diff === 1) return "Yesterday";
-        if (diff <= 7) return "Previous 7 days";
-        return "Older";
+        if (diff <= 0) return t("chat.today");
+        if (diff === 1) return t("chat.yesterday");
+        if (diff <= 7) return t("chat.week");
+        return t("chat.older");
     }
 
     function renderSidebar() {
@@ -194,7 +191,7 @@
 
         historyEl.innerHTML = "";
         if (!list.length) {
-            historyEl.innerHTML = `<p class="empty">${q ? "No chats match your search." : "No conversations yet.<br>Start one below!"}</p>`;
+            historyEl.innerHTML = `<p class="empty">${q ? escapeHtml(t("chat.noMatch")) : t("chat.noChats")}</p>`;
             return;
         }
         let lastGroup = "";
@@ -205,7 +202,7 @@
             }
             const item = document.createElement("div");
             item.className = "chat-item" + (c.id === activeId ? " active" : "");
-            item.innerHTML = '<button class="open"></button><button class="icon-btn del" title="Delete chat" aria-label="Delete chat"><span class="ms">delete</span></button>';
+            item.innerHTML = `<button class="open"></button><button class="icon-btn del" title="${escapeHtml(t("chat.delete"))}" aria-label="${escapeHtml(t("chat.delete"))}"><span class="ms">delete</span></button>`;
             const open = item.querySelector(".open");
             open.textContent = c.title; open.title = c.title;
             open.addEventListener("click", () => openChat(c.id));
@@ -230,7 +227,7 @@
 
     function deleteChat(id) {
         const c = chats.find((x) => x.id === id);
-        if (!c || !confirm(`Delete "${c.title}"? This can't be undone.`)) return;
+        if (!c || !confirm(t("chat.confirmDelete", { title: c.title }))) return;
         chats = chats.filter((x) => x.id !== id);
         saveChats();
         if (activeId === id) activeId = null;
@@ -238,8 +235,8 @@
     }
 
     function clearAll() {
-        if (!chats.length) return toast("There's no history to clear.");
-        if (!confirm("Delete ALL your chat history? This can't be undone.")) return;
+        if (!chats.length) return toast(t("chat.nothingToClear"));
+        if (!confirm(t("chat.confirmClear"))) return;
         chats = []; activeId = null; saveChats();
         renderSidebar(); renderMessages();
     }
@@ -247,7 +244,7 @@
     async function sendMessage(rawText) {
         let text = (rawText ?? input.value).trim();
         if (busy || (!text && !pendingFile)) return;
-        if (!text) text = "What can you tell me about this image?";
+        if (!text) text = t("chat.imageQuestion");
 
         let chat = activeChat();
         if (!chat) {
@@ -280,7 +277,7 @@
                 if (activeId === chat.id) activeId = null;
             }
             if (!input.value) { input.value = text; autosize(); }
-            toast(err.message || "Something went wrong.", true);
+            toast(err.message || t("chat.wrong"), true);
         } finally {
             setBusy(false);
             saveChats();
@@ -314,8 +311,8 @@
         const f = fileInput.files[0];
         fileInput.value = "";
         if (!f) return;
-        if (!f.type.startsWith("image/")) return toast("Please choose an image file.", true);
-        if (f.size > 8 * 1024 * 1024) return toast("Image is too large (max 8 MB).", true);
+        if (!f.type.startsWith("image/")) return toast(t("chat.notImage"), true);
+        if (f.size > 8 * 1024 * 1024) return toast(t("chat.tooBig"), true);
         const reader = new FileReader();
         reader.onload = (e) => {
             pendingFile = { data: e.target.result.split(",")[1], mime_type: f.type, name: f.name, preview: e.target.result };
@@ -376,6 +373,13 @@
     // Keep several tabs in sync
     window.addEventListener("storage", (e) => {
         if (e.key === STORAGE_KEY && !busy) { chats = loadChats(); renderSidebar(); if (!activeChat()) activeId = null; renderMessages(); }
+    });
+
+    // Re-render everything when the language changes
+    I18n.onChange(() => {
+        renderSidebar();
+        renderMessages();
+        if (busy) showTyping();
     });
 
     /* ---------------- Init ---------------- */

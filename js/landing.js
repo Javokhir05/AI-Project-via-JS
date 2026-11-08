@@ -1,4 +1,5 @@
 (() => {
+    const t = (k) => I18n.t(k);
     const nav = document.getElementById("nav");
     const burger = document.getElementById("burger");
 
@@ -6,13 +7,15 @@
     const user = Auth.currentUser();
     document.querySelectorAll("[data-auth-slot]").forEach((slot) => {
         slot.innerHTML = user
-            ? `<a class="btn btn-primary" href="pages/chat.html"><span class="ms">chat</span> Open chat</a>`
-            : `<a class="btn btn-ghost" href="pages/login.html">Log in</a><a class="btn btn-primary" href="pages/register.html">Sign up</a>`;
+            ? `<a class="btn btn-primary" href="pages/chat.html"><span class="ms">chat</span> <span data-i18n="common.openChat"></span></a>`
+            : `<a class="btn btn-ghost" href="pages/login.html" data-i18n="common.login"></a><a class="btn btn-primary" href="pages/register.html" data-i18n="common.signup"></a>`;
+        I18n.apply(slot);
     });
     if (user) {
         document.querySelectorAll("[data-cta-primary]").forEach((a) => {
             a.href = "pages/chat.html";
-            a.textContent = "Open chat";
+            a.dataset.i18n = "common.openChat";
+            a.textContent = t("common.openChat");
         });
     }
 
@@ -31,23 +34,30 @@
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // Typing animation (types, pauses, deletes, repeats)
+    // Typing animation (types, pauses, deletes, repeats); words follow the chosen language
     const typed = document.getElementById("typed");
-    const words = ["Hi there...", "Hola...", "Cześć...", "Hello..."];
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let words = I18n.typedWords();
     let w = 0, i = 0, deleting = false;
     const tick = () => {
-        const word = words[w];
+        const word = words[w % words.length];
         if (!deleting) {
             typed.textContent = word.slice(0, ++i);
-            if (i === word.length) { deleting = true; return setTimeout(tick, 1400); }
+            if (i >= word.length) { deleting = true; return setTimeout(tick, 1400); }
             return setTimeout(tick, 100);
         }
         typed.textContent = word.slice(0, --i);
-        if (i === 0) { deleting = false; w = (w + 1) % words.length; return setTimeout(tick, 350); }
+        if (i <= 0) { deleting = false; w = (w + 1) % words.length; return setTimeout(tick, 350); }
         setTimeout(tick, 50);
     };
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) typed.textContent = words[0];
+    if (reduceMotion) typed.textContent = words[0];
     else tick();
+
+    I18n.onChange(() => {
+        words = I18n.typedWords();
+        w = 0; i = 0; deleting = false;
+        typed.textContent = reduceMotion ? words[0] : "";
+    });
 
     // Scroll reveal
     const items = document.querySelectorAll(".reveal");

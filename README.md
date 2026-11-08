@@ -9,6 +9,7 @@ A responsive AI chat assistant built with plain HTML, CSS and JavaScript. It has
 - Chat with conversation history: sidebar with search, reopen, delete and clear-all
 - Image attachments (the model can answer questions about an image)
 - Light and dark themes (the choice is remembered)
+- Language switcher: English, Uzbek, Polish and Russian (the choice is remembered)
 - Responsive layout: the history sidebar becomes a slide-in drawer on small screens
 - Emoji picker, simple Markdown rendering (lists, code blocks, bold, links) and a copy button on answers
 
@@ -31,6 +32,7 @@ A responsive AI chat assistant built with plain HTML, CSS and JavaScript. It has
 │   ├── api.js            The only file that talks to the AI API
 │   ├── auth.js           Registration / login (localStorage, demo)
 │   ├── theme.js          Light / dark theme
+│   ├── i18n.js           Translations (EN / UZ / PL / RU) and the language dropdown
 │   ├── landing.js
 │   ├── auth-pages.js
 │   └── chat.js           Chat UI and history
@@ -50,6 +52,7 @@ This project has no database. Accounts and chat history are stored in the browse
 | `chatbot_session` | The signed-in user's email. Kept in `localStorage` with "Remember me", otherwise in `sessionStorage` (cleared when the tab closes) |
 | `chatbot_history_<email>` | That user's conversations and messages |
 | `chatbot_theme` | `light` or `dark` |
+| `chatbot_lang` | `en`, `uz`, `pl` or `ru` |
 
 What this means in practice:
 
@@ -60,6 +63,17 @@ What this means in practice:
 - **Nothing is sent to a server except your messages.** Chat messages go to the Netlify Function and on to the Gemini API to get a reply. Accounts and history are not uploaded anywhere.
 
 To sync accounts and history across devices, replace `js/auth.js` and the history code in `js/chat.js` with a real backend (for example Supabase or Firebase), which provides server-side authentication and a database.
+
+## Languages
+
+All interface text lives in `js/i18n.js`, in one table: each row is `"key": [English, Uzbek, Polish, Russian]`.
+
+- HTML uses attributes such as `data-i18n="key"` (text), `data-i18n-placeholder`, `data-i18n-aria` and `data-i18n-title`.
+- JavaScript uses `I18n.t("key")`, and `I18n.onChange(fn)` to re-render when the language changes.
+- The first visit uses the browser language if it is supported, otherwise English.
+- The AI answers in whatever language you write your question in. The language switcher only changes the interface.
+
+To add a language, add it to `LANGS` and add one more entry to every row in the table (and to `TYPED`).
 
 ## API setup
 
@@ -114,4 +128,4 @@ To look only at the pages (no AI replies), any static server works, for example 
 
 ## Author
 - Javokhirbek Ruziboev
-- email "roziboyevjavokhir045@gmail.com"
+- email - "roziboyevjavokhir045@gmail.com"

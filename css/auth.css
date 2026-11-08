@@ -66,3 +66,7 @@
     .auth-main { padding: 16px 18px; }
     .auth-card h1 { font-size: 1.6rem; }
 }
+
+.auth-tools { display: flex; align-items: center; gap: 8px; }
+
+.top-actions { display: flex; align-items: center; gap: 2px; }

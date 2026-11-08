@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create account – ChatBot</title>
+    <title data-i18n="register.doc">Create account – ChatBot</title>
     <link rel="icon" href="../assets/logo.svg">
     <script src="../js/theme.js"></script>
     <link rel="stylesheet" href="../css/base.css">
@@ -14,12 +14,12 @@
         <aside class="auth-aside">
             <a class="logo" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span> ChatBot</a>
             <div class="aside-copy">
-                <h2>Start chatting in a minute</h2>
-                <p>Create a free account to save your conversations and come back to them anytime.</p>
+                <h2 data-i18n="register.asideTitle">Start chatting in a minute</h2>
+                <p data-i18n="register.asideText">Create a free account to save your conversations and come back to them anytime.</p>
                 <ul class="aside-list">
-                    <li><span class="ms">check</span> Free to get started</li>
-                    <li><span class="ms">check</span> History saved to your account</li>
-                    <li><span class="ms">check</span> Share images and ask about them</li>
+                    <li><span class="ms">check</span> <span data-i18n="register.a1">Free to get started</span></li>
+                    <li><span class="ms">check</span> <span data-i18n="register.a2">History saved to your account</span></li>
+                    <li><span class="ms">check</span> <span data-i18n="register.a3">Share images and ask about them</span></li>
                 </ul>
             </div>
             <div class="aside-foot">© ChatBot</div>
@@ -27,32 +27,35 @@
 
         <main class="auth-main">
             <div class="auth-top">
-                <a class="back" href="../index.html"><span class="ms">arrow_back</span> Home</a>
+                <a class="back" href="../index.html"><span class="ms">arrow_back</span> <span data-i18n="common.home">Home</span></a>
                 <a class="logo logo-mobile" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span></a>
-                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
-                    <span class="ms">dark_mode</span><span class="ms">light_mode</span>
-                </button>
+                <div class="top-actions">
+                    <div data-lang-switch></div>
+                    <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode" data-i18n-aria="common.toggleTheme">
+                        <span class="ms">dark_mode</span><span class="ms">light_mode</span>
+                    </button>
+                </div>
             </div>
 
             <div class="auth-center">
                 <div class="auth-card">
-                    <h1>Create your account</h1>
-                    <p class="sub">It only takes a moment.</p>
+                    <h1 data-i18n="register.title">Create your account</h1>
+                    <p class="sub" data-i18n="register.sub">It only takes a moment.</p>
 
                     <form id="auth-form" data-mode="register" novalidate>
                         <div class="form-error" id="form-error" role="alert"><span class="ms">error</span><span id="form-error-text"></span></div>
 
                         <div class="field">
-                            <label for="name">Name</label>
+                            <label for="name" data-i18n="register.name">Name</label>
                             <div class="input-wrap">
                                 <span class="ms">person</span>
-                                <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+                                <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Your name" data-i18n-placeholder="register.namePh" required>
                             </div>
                             <div class="field-error" data-error-for="name"></div>
                         </div>
 
                         <div class="field">
-                            <label for="email">Email</label>
+                            <label for="email" data-i18n="form.email">Email</label>
                             <div class="input-wrap">
                                 <span class="ms">mail</span>
                                 <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
@@ -61,10 +64,10 @@
                         </div>
 
                         <div class="field">
-                            <label for="password">Password</label>
+                            <label for="password" data-i18n="form.password">Password</label>
                             <div class="input-wrap">
                                 <span class="ms">lock</span>
-                                <input class="input" id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required>
+                                <input class="input" id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" data-i18n-placeholder="register.pwPh" required>
                                 <button type="button" class="icon-btn reveal-btn reveal" aria-label="Show password" data-reveal="password"><span class="ms">visibility</span></button>
                             </div>
                             <div class="strength" id="strength" data-level="0"><i></i><i></i><i></i><i></i></div>
@@ -73,23 +76,24 @@
                         </div>
 
                         <div class="field">
-                            <label for="confirm">Confirm password</label>
+                            <label for="confirm" data-i18n="register.confirm">Confirm password</label>
                             <div class="input-wrap">
                                 <span class="ms">lock_reset</span>
-                                <input class="input" id="confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password" required>
+                                <input class="input" id="confirm" name="confirm" type="password" autocomplete="new-password" placeholder="Repeat your password" data-i18n-placeholder="register.confirmPh" required>
                             </div>
                             <div class="field-error" data-error-for="confirm"></div>
                         </div>
 
-                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit">Create account</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit" data-i18n="common.createAccount">Create account</button>
                     </form>
 
-                    <p class="switch">Already have an account? <a href="login.html" id="switch-link">Log in</a></p>
+                    <p class="switch"><span data-i18n="register.have">Already have an account?</span> <a href="login.html" id="switch-link" data-i18n="register.loginLink">Log in</a></p>
                 </div>
             </div>
         </main>
     </div>
 
+    <script src="../js/i18n.js"></script>
     <script src="../js/auth.js"></script>
     <script src="../js/auth-pages.js"></script>
 </body>

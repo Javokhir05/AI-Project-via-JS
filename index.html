@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ChatBot – Ask anything, get answers fast</title>
-    <meta name="description" content="A friendly AI chat assistant. Ask questions, share images, and pick up your conversations right where you left off.">
+    <title data-i18n="landing.title">ChatBot – Ask anything, get answers fast</title>
+    <meta name="description" content="A friendly AI chat assistant. Ask questions, share images, and pick up your conversations right where you left off." data-i18n-content="landing.desc">
     <link rel="icon" href="assets/logo.svg">
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/base.css">
@@ -18,17 +18,18 @@
                 ChatBot
             </a>
             <nav class="nav-links" id="nav-links" aria-label="Main">
-                <a href="#features">Features</a>
-                <a href="#how">How it works</a>
-                <a href="#faq">FAQ</a>
+                <a href="#features" data-i18n="nav.features">Features</a>
+                <a href="#how" data-i18n="nav.how">How it works</a>
+                <a href="#faq" data-i18n="nav.faq">FAQ</a>
                 <div class="nav-auth nav-auth-mobile" data-auth-slot></div>
             </nav>
             <div class="nav-actions">
-                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle theme">
+                <div data-lang-switch></div>
+                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode" data-i18n-aria="common.toggleTheme" data-i18n-title="common.toggleTheme">
                     <span class="ms">dark_mode</span><span class="ms">light_mode</span>
                 </button>
                 <div class="nav-auth nav-auth-desktop" data-auth-slot></div>
-                <button class="icon-btn nav-burger" id="burger" aria-label="Open menu" aria-expanded="false">
+                <button class="icon-btn nav-burger" id="burger" aria-label="Open menu" data-i18n-aria="nav.menu" aria-expanded="false">
                     <span class="ms">menu</span>
                 </button>
             </div>
@@ -40,17 +41,17 @@
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-copy">
-                    <span class="pill"><span class="ms">auto_awesome</span> AI assistant</span>
-                    <h1><span class="typed-wrap"><span id="typed"></span><span class="caret"></span></span><br>Ask anything.<br><span class="grad-text">Get answers fast.</span></h1>
-                    <p class="lead">A friendly chatbot that helps you write, learn and solve problems. Share an image, keep every conversation, and pick up exactly where you left off.</p>
+                    <span class="pill"><span class="ms">auto_awesome</span> <span data-i18n="hero.pill">AI assistant</span></span>
+                    <h1><span class="typed-wrap"><span id="typed"></span><span class="caret"></span></span><br><span data-i18n="hero.line1">Ask anything.</span><br><span class="grad-text" data-i18n="hero.line2">Get answers fast.</span></h1>
+                    <p class="lead" data-i18n="hero.lead">A friendly chatbot that helps you write, learn and solve problems. Share an image, keep every conversation, and pick up exactly where you left off.</p>
                     <div class="hero-cta">
-                        <a class="btn btn-primary btn-lg" href="pages/register.html" data-cta-primary>Get started free</a>
-                        <a class="btn btn-secondary btn-lg" href="#how">See how it works</a>
+                        <a class="btn btn-primary btn-lg" href="pages/register.html" data-cta-primary data-i18n="hero.cta">Get started free</a>
+                        <a class="btn btn-secondary btn-lg" href="#how" data-i18n="hero.how">See how it works</a>
                     </div>
                     <ul class="hero-points">
-                        <li><span class="ms">check_circle</span> Free to try</li>
-                        <li><span class="ms">check_circle</span> Chat history saved</li>
-                        <li><span class="ms">check_circle</span> Works on any device</li>
+                        <li><span class="ms">check_circle</span> <span data-i18n="hero.p1">Free to try</span></li>
+                        <li><span class="ms">check_circle</span> <span data-i18n="hero.p2">Chat history saved</span></li>
+                        <li><span class="ms">check_circle</span> <span data-i18n="hero.p3">Works on any device</span></li>
                     </ul>
                 </div>
 
@@ -59,18 +60,18 @@
                         <div class="mock-head">
                             <span class="logo-mark sm"><img src="assets/logo.svg" alt=""></span>
                             <strong>ChatBot</strong>
-                            <span class="online"><i></i> online</span>
+                            <span class="online"><i></i> <span data-i18n="mock.online">online</span></span>
                         </div>
                         <div class="mock-body">
-                            <div class="m-msg bot">Hey there 🖐 How can I help you today?</div>
-                            <div class="m-msg user">Can you explain how photosynthesis works?</div>
-                            <div class="m-msg bot">Sure! Plants turn sunlight, water and CO₂ into sugar and oxygen inside their chloroplasts…</div>
+                            <div class="m-msg bot" data-i18n="mock.bot1">Hey there 🖐 How can I help you today?</div>
+                            <div class="m-msg user" data-i18n="mock.user">Can you explain how photosynthesis works?</div>
+                            <div class="m-msg bot" data-i18n="mock.bot2">Sure! Plants turn sunlight, water and CO₂ into sugar and oxygen inside their chloroplasts…</div>
                             <div class="m-msg bot typing"><i></i><i></i><i></i></div>
                         </div>
-                        <div class="mock-input"><span>Message…</span><span class="ms">arrow_upward</span></div>
+                        <div class="mock-input"><span data-i18n="mock.input">Message…</span><span class="ms">arrow_upward</span></div>
                     </div>
-                    <div class="float-card fc-1"><span class="ms">history</span> History saved</div>
-                    <div class="float-card fc-2"><span class="ms">image</span> Image support</div>
+                    <div class="float-card fc-1"><span class="ms">history</span> <span data-i18n="mock.float1">History saved</span></div>
+                    <div class="float-card fc-2"><span class="ms">image</span> <span data-i18n="mock.float2">Image support</span></div>
                 </div>
             </div>
         </section>
@@ -79,39 +80,39 @@
         <section class="section" id="features">
             <div class="container">
                 <div class="section-head reveal">
-                    <h2>Everything you need in a chat</h2>
-                    <p>Simple on the surface, with the details that make a daily assistant pleasant to use.</p>
+                    <h2 data-i18n="feat.title">Everything you need in a chat</h2>
+                    <p data-i18n="feat.sub">Simple on the surface, with the details that make a daily assistant pleasant to use.</p>
                 </div>
                 <div class="feature-grid">
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">forum</span></span>
-                        <h3>Natural conversations</h3>
-                        <p>Ask follow-up questions and the bot remembers the context of the whole chat.</p>
+                        <h3 data-i18n="feat.1.t">Natural conversations</h3>
+                        <p data-i18n="feat.1.d">Ask follow-up questions and the bot remembers the context of the whole chat.</p>
                     </article>
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">history</span></span>
-                        <h3>Saved history</h3>
-                        <p>Every chat is stored in your account. Search, reopen or delete them any time.</p>
+                        <h3 data-i18n="feat.2.t">Saved history</h3>
+                        <p data-i18n="feat.2.d">Every chat is stored in your account. Search, reopen or delete them any time.</p>
                     </article>
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">image</span></span>
-                        <h3>Understands images</h3>
-                        <p>Attach a picture and ask about it: read text, identify objects, get ideas.</p>
+                        <h3 data-i18n="feat.3.t">Understands images</h3>
+                        <p data-i18n="feat.3.d">Attach a picture and ask about it: read text, identify objects, get ideas.</p>
                     </article>
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">devices</span></span>
-                        <h3>Works everywhere</h3>
-                        <p>A layout that adapts from large monitors down to small phones.</p>
+                        <h3 data-i18n="feat.4.t">Works everywhere</h3>
+                        <p data-i18n="feat.4.d">A layout that adapts from large monitors down to small phones.</p>
                     </article>
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">dark_mode</span></span>
-                        <h3>Light &amp; dark themes</h3>
-                        <p>Easy on the eyes day or night. Your choice is remembered.</p>
+                        <h3 data-i18n="feat.5.t">Light &amp; dark themes</h3>
+                        <p data-i18n="feat.5.d">Easy on the eyes day or night. Your choice is remembered.</p>
                     </article>
                     <article class="card reveal">
                         <span class="card-icon"><span class="ms">sentiment_satisfied</span></span>
-                        <h3>Emoji &amp; formatting</h3>
-                        <p>Add emoji to your messages, and read answers with lists and code blocks.</p>
+                        <h3 data-i18n="feat.6.t">Emoji &amp; formatting</h3>
+                        <p data-i18n="feat.6.d">Add emoji to your messages, and read answers with lists and code blocks.</p>
                     </article>
                 </div>
             </div>
@@ -121,12 +122,12 @@
         <section class="section alt" id="how">
             <div class="container">
                 <div class="section-head reveal">
-                    <h2>Up and running in three steps</h2>
+                    <h2 data-i18n="how.title">Up and running in three steps</h2>
                 </div>
                 <ol class="steps">
-                    <li class="reveal"><span class="step-num">1</span><h3>Create an account</h3><p>Sign up with your email in under a minute.</p></li>
-                    <li class="reveal"><span class="step-num">2</span><h3>Start a chat</h3><p>Type a question or pick one of the suggestions.</p></li>
-                    <li class="reveal"><span class="step-num">3</span><h3>Come back later</h3><p>Your conversations wait in the sidebar whenever you return.</p></li>
+                    <li class="reveal"><span class="step-num">1</span><h3 data-i18n="how.1.t">Create an account</h3><p data-i18n="how.1.d">Sign up with your email in under a minute.</p></li>
+                    <li class="reveal"><span class="step-num">2</span><h3 data-i18n="how.2.t">Start a chat</h3><p data-i18n="how.2.d">Type a question or pick one of the suggestions.</p></li>
+                    <li class="reveal"><span class="step-num">3</span><h3 data-i18n="how.3.t">Come back later</h3><p data-i18n="how.3.d">Your conversations wait in the sidebar whenever you return.</p></li>
                 </ol>
             </div>
         </section>
@@ -134,23 +135,23 @@
         <!-- FAQ -->
         <section class="section" id="faq">
             <div class="container narrow">
-                <div class="section-head reveal"><h2>Questions, answered</h2></div>
+                <div class="section-head reveal"><h2 data-i18n="faq.title">Questions, answered</h2></div>
                 <div class="faq reveal">
                     <details>
-                        <summary>Is my chat history private?</summary>
-                        <p>In this version your account and history are stored in your own browser, so they stay on your device. A server-backed version would sync them across devices.</p>
+                        <summary data-i18n="faq.1.q">Is my chat history private?</summary>
+                        <p data-i18n="faq.1.a">In this version your account and history are stored in your own browser, so they stay on your device. A server-backed version would sync them across devices.</p>
                     </details>
                     <details>
-                        <summary>Can I use it on my phone?</summary>
-                        <p>Yes. Every page adapts to small screens, and the history sidebar becomes a slide-in menu.</p>
+                        <summary data-i18n="faq.2.q">Can I use it on my phone?</summary>
+                        <p data-i18n="faq.2.a">Yes. Every page adapts to small screens, and the history sidebar becomes a slide-in menu.</p>
                     </details>
                     <details>
-                        <summary>Can I send images?</summary>
-                        <p>Yes. Use the paperclip in the message box to attach an image and ask about it.</p>
+                        <summary data-i18n="faq.3.q">Can I send images?</summary>
+                        <p data-i18n="faq.3.a">Yes. Use the paperclip in the message box to attach an image and ask about it.</p>
                     </details>
                     <details>
-                        <summary>How do I delete my conversations?</summary>
-                        <p>Hover a chat in the sidebar and press the bin icon, or clear everything at once from the sidebar footer.</p>
+                        <summary data-i18n="faq.4.q">How do I delete my conversations?</summary>
+                        <p data-i18n="faq.4.a">Hover a chat in the sidebar and press the bin icon, or clear everything at once from the sidebar footer.</p>
                     </details>
                 </div>
             </div>
@@ -160,9 +161,9 @@
         <section class="section">
             <div class="container">
                 <div class="cta reveal">
-                    <h2>Ready to start chatting?</h2>
-                    <p>Create a free account and ask your first question.</p>
-                    <a class="btn btn-lg cta-btn" href="pages/register.html" data-cta-primary>Get started free</a>
+                    <h2 data-i18n="cta.title">Ready to start chatting?</h2>
+                    <p data-i18n="cta.sub">Create a free account and ask your first question.</p>
+                    <a class="btn btn-lg cta-btn" href="pages/register.html" data-cta-primary data-i18n="hero.cta">Get started free</a>
                 </div>
             </div>
         </section>
@@ -171,10 +172,11 @@
     <footer class="footer">
         <div class="container footer-inner">
             <a class="logo" href="index.html"><span class="logo-mark"><img src="assets/logo.svg" alt=""></span> ChatBot</a>
-            <p>© <span id="year"></span> ChatBot. All rights reserved.</p>
+            <p>© <span id="year"></span> ChatBot. <span data-i18n="footer.rights">All rights reserved.</span></p>
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/landing.js"></script>
 </body>

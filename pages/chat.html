@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Chat – ChatBot</title>
+    <link rel="icon" href="../assets/logo.svg">
+    <script src="../js/theme.js"></script>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/chat.css">
+</head>
+<body class="chat-page">
+    <div class="app" id="app">
+
+        <!-- Sidebar: history -->
+        <aside class="sidebar" id="sidebar" aria-label="Chat history">
+            <div class="sb-head">
+                <a class="logo" href="../index.html"><span class="logo-mark"><img src="../assets/logo.svg" alt=""></span> ChatBot</a>
+                <button class="icon-btn sb-close" id="sb-close" aria-label="Close menu"><span class="ms">close</span></button>
+            </div>
+
+            <button class="btn btn-primary btn-block" id="new-chat"><span class="ms">add</span> New chat</button>
+
+            <div class="search">
+                <span class="ms">search</span>
+                <input id="search" type="search" placeholder="Search chats" autocomplete="off" aria-label="Search chats">
+            </div>
+
+            <nav class="history" id="history"></nav>
+
+            <div class="sb-foot">
+                <div class="avatar" id="user-avatar" aria-hidden="true"></div>
+                <div class="who">
+                    <strong id="user-name"></strong>
+                    <small id="user-email"></small>
+                </div>
+                <button class="icon-btn" id="clear-all" title="Clear all history" aria-label="Clear all history"><span class="ms">delete_sweep</span></button>
+                <button class="icon-btn" id="logout" title="Log out" aria-label="Log out"><span class="ms">logout</span></button>
+            </div>
+        </aside>
+        <div class="scrim" id="scrim"></div>
+
+        <!-- Main chat area -->
+        <main class="main">
+            <header class="topbar">
+                <button class="icon-btn menu-btn" id="open-sb" aria-label="Open chat history"><span class="ms">menu</span></button>
+                <h1 id="chat-title">New chat</h1>
+                <button class="icon-btn" id="top-new" title="New chat" aria-label="New chat"><span class="ms">edit_square</span></button>
+                <button class="icon-btn theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+                    <span class="ms">dark_mode</span><span class="ms">light_mode</span>
+                </button>
+            </header>
+
+            <div class="messages" id="messages" aria-live="polite"></div>
+
+            <div class="composer-wrap">
+                <div class="attach-preview" id="attach-preview" hidden>
+                    <img id="attach-img" alt="Attached image">
+                    <span id="attach-name"></span>
+                    <button class="icon-btn" id="attach-remove" aria-label="Remove image"><span class="ms">close</span></button>
+                </div>
+
+                <form class="composer" id="composer" autocomplete="off">
+                    <textarea id="input" rows="1" placeholder="Message ChatBot…" aria-label="Message"></textarea>
+                    <div class="composer-actions">
+                        <button type="button" class="icon-btn" id="emoji-btn" aria-label="Insert emoji"><span class="ms">sentiment_satisfied</span></button>
+                        <input type="file" id="file-input" accept="image/*" hidden>
+                        <button type="button" class="icon-btn" id="file-btn" aria-label="Attach image"><span class="ms">attach_file</span></button>
+                        <button type="submit" class="send-btn" id="send" aria-label="Send message" disabled><span class="ms">arrow_upward</span></button>
+                    </div>
+                </form>
+                <p class="hint">Responses may contain mistakes. Press <kbd>Enter</kbd> to send, <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line.</p>
+            </div>
+        </main>
+    </div>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@5.6.0/dist/browser.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+</html>
